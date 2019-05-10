@@ -5,6 +5,7 @@ import com.krugercorp.ec.micro1.bean.ToDoBean;
 import com.krugercorp.ec.micro1.util.TodoNotFoundException;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,7 @@ public class ToDoController {
             response = ToDoBean.class,
             responseContainer = "List",
             produces = "application/json")
+    @Cacheable("todos")
     @GetMapping("/users/{name}/todos")
     public List<ToDoBean> retrieveTodos(@PathVariable String name){
         return toDoService.retrieveTodos(name);
